@@ -53,11 +53,20 @@ streamlit run src/app.py
 
 
 <p align="center">
-    <img src="./entry_streamlit_service.jpg" alt="Логотип проекта" width="500" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
-     <H2 align="center">Главная страница сервиса</H2> 
+    <img src="./entry_streamlit_service.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+    Начальная страница сервиса
 </p>
 
 
+# Пример использования сервиса, иллюстрированный процессом обработки скринкаста.
+
+
+*Заполнить*
+
+
+# Пример работы сервиса
+
+*Заполнить*
 
 
 Структура проекта
