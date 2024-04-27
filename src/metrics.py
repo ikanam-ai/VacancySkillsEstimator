@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 from fuzzywuzzy import fuzz
 from collections import Counter
@@ -33,7 +35,6 @@ def calculate_tfidf_similarity(data_gb, data_it, vacancy) -> pd.DataFrame:
     vacancy_texts = [vacancy['name'] + vacancy['description'] + ' '.join(vacancy['key_skills'])]
 
     gb_texts = list(data_it['description'] + [' '.join(i) for i in data_it['hard_skills']]) + vacancy_texts + list(data_gb['summary'] + data_gb['other']+ [' '.join(i) for i in data_gb['stack']])
-
     # Создаем TF-IDF векторизатор
     tfidf_vectorizer_gb = TfidfVectorizer()
 

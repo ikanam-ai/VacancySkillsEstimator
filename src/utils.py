@@ -1,7 +1,9 @@
+import logging
 from typing import Any
 import re
 import string
 
+import numpy as np
 import pandas as pd
 from parse_hh_data import download
 from bs4 import BeautifulSoup
@@ -18,6 +20,9 @@ from sklearn.preprocessing import MinMaxScaler
 
 STOP_WORDS = set(stopwords.words('russian'))
 PUNCTUATION = set(string.punctuation)
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def preprocess_data_from_vacancy_url(vacancy_url: str) -> dict[str, Any]:
@@ -145,16 +150,28 @@ def preprocess_it_csv(csv_file_path: str) -> pd.DataFrame:
 
     return data
 
-def preprocess_and_match_vacancy(vacancy_url: str, data_gb_path: str, data_it_path: str) -> pd.DataFrame:
+def preprocess_and_match_vacancy(vacancy_url: str, data_gb_path: str, data_it_path: str):
     # Preprocess vacancy from url
+    logging.info("Start preprocess_data_from_vacancy_url")
     preprocessed_vacancy = preprocess_data_from_vacancy_url(vacancy_url)
-    
+    logging.info("End preprocess_data_from_vacancy_url")
+
     # Preprocess vacancy data
+    logging.info("Start postprocessing_vacancy_data")
     preprocessed_vacancy = postprocessing_vacancy_data(preprocessed_vacancy)
+    logging.info("End postprocessing_vacancy_data")
 
+    logging.info("Start preprocess_gb_data")
     data_gb = preprocess_gb_data(data_gb_path)
-    data_it = preprocess_it_csv(data_it_path)
+    logging.info("End preprocess_gb_data")
 
+    logging.info("Start preprocess_it_csv")
+    # data_it = preprocess_it_csv(data_it_path)
+    data_it = pd.read_csv(data_it_path, index_col=0)
+    data_it = data_it.replace(np.nan, '', regex=True)
+    logging.info("End preprocess_it_csv")
+
+    logging.info("Start calculate Levenshtein")
     # Calculate Levenshtein distance between vacancy name and company names in data_gb
     data_gb['levenshtein_distance'] = data_gb.apply(levenshtein_distance_sort, args=(preprocessed_vacancy['name'],), axis=1)
 
@@ -163,14 +180,19 @@ def preprocess_and_match_vacancy(vacancy_url: str, data_gb_path: str, data_it_pa
 
     # Calculate skill similarity between vacancy and job descriptions in data_gb
     data_gb['levenshtein_distance_stack'], data_gb['max_intersection_stack'] = zip(*data_gb.apply(calculate_skill_similarity, args=(it_skills,), axis=1))
+    logging.info("End calculate Levenshtein")
 
+    logging.info("Start calculate_tfidf_similarity")
     # Calculate TF-IDF similarity between vacancy description and job descriptions in data_gb
     data_gb = calculate_tfidf_similarity(data_gb, data_it, preprocessed_vacancy)
+    logging.info("Start calculate_tfidf_similarity")
 
+    logging.info("Start scaling")
     # Нормализация метрик
     scaler = MinMaxScaler()
     metrics_to_normalize = ['levenshtein_distance', 'levenshtein_distance_stack', 'max_intersection_stack', 'tfidf_description']
     data_gb['total_score'] = scaler.fit_transform(data_gb[metrics_to_normalize]).sum(axis=1)
     data_gb = data_gb.sort_values(by='total_score', ascending=False).reset_index(drop=True)
+    logging.info("End scaling")
 
-    return data_gb
+    return data_gb, preprocessed_vacancy
