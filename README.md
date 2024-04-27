@@ -53,8 +53,8 @@ streamlit run src/app.py
 
 
 <p align="center">
-    <img src="./entry_streamlit_service.jpg" alt="Логотип проекта" width="500" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
-    Подпись к картинке здесь
+    <img src="./entry_streamlit_service.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+    Начальная страница сервиса
 </p>
 
 
