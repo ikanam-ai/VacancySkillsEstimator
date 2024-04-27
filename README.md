@@ -1,9 +1,14 @@
 VacancySkillsEstimator
 ==============================
 
-VacancySkillsEstimator - проект, который анализирует вакансии на hh.ru и связывает их с соответствующими образовательными курсами. Позволяет соискателям понять, какие навыки нужны работодателям, и предоставляет информацию о доступных курсах для их приобретения.
+VacancySkillsEstimator - проект, созданный командой Ikanam в качестве решения для кейса Компетентностный подбор образовательных курсов от компании-кейсодержателя GeekBrains на хакатоне Цифровой Прорыв ЦФО Сезон ИИ 2024.
 
-Project Organization
+
+
+
+
+
+Структура проекта
 ------------
 
     ├── LICENSE
@@ -54,4 +59,3 @@ Project Organization
 
 --------
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
