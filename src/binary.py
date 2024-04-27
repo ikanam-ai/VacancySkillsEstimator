@@ -38,6 +38,7 @@ def train_binary_trebovanyia_model(data_csv_path: str) -> None:
     print(classification_report(y_test, y_pred))
 
     dump(clf, 'clf.joblib')
+    dump(tfidf_vectorizer, 'tfidf_vectorizer.joblib')
 
 
 def load_trained_clf(clf_path: str) -> MultinomialNB:
@@ -45,3 +46,9 @@ def load_trained_clf(clf_path: str) -> MultinomialNB:
     clf = load(clf_path)
 
     return clf
+
+def load_trained_tfidf_vectorizer(tfidf_vectorizer_path: str) -> TfidfVectorizer:
+
+    tfidf_vectorizer = load(tfidf_vectorizer_path)
+
+    return tfidf_vectorizer
