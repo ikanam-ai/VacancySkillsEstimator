@@ -7,20 +7,19 @@ class ResumeSkillsFinder:
     Атрибуты:
         skills (list): Список навыков для поиска в резюме.
     """
-    def __init__(self, skills_path: str) -> None:
+    def __init__(self) -> None:
         """
         Инициализирует объект класса ResumeSkillsFinder, загружая навыки из файла.
 
         Параметры:
             skills_path (str): Путь к файлу с навыками.
         """
-        self.skills = self._load_skills(skills_path)
-
-    @staticmethod
-    def _load_skills(skills_path: str) -> list:
-        with open(skills_path, 'r', encoding='utf-8') as file:
-            skills = file.read().split()
-        return skills
+        self.skills = None
+   # @staticmethod
+   # def _load_skills(skills_path: str) -> list:
+   #     with open(skills_path, 'r', encoding='utf-8') as file:
+   #         skills = file.read().split()
+   #     return skills
 
     @staticmethod
     def _read_pdf(path: str) -> str:
@@ -43,8 +42,3 @@ class ResumeSkillsFinder:
         resume_text = self._read_pdf(resume_path)
         found_skills = [skill for skill in self.skills if skill.lower() in resume_text.lower()]
         return found_skills
-
-# Пример использования:
-finder = ResumeSkillsFinder('skills.txt')
-found_skills = finder.find_skills_in_resume('resume.pdf')
-print('Найденные навыки:', found_skills)
