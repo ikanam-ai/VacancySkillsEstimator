@@ -19,7 +19,7 @@ def main():
         "программ, а также составляется рекомендация к конкретной программе."
         )
 
-    tab1, tab2, tab3 = st.tabs(["Вакансия😎📊", "Вакансия+резюме🚀💻", "Кластерный анализ🧠🤖"])
+    tab1, tab2 = st.tabs(["Вакансия😎📊", "Вакансия+резюме🚀💻"])
     
 
     with tab1:
@@ -218,9 +218,6 @@ def main():
             matrix_df = get_matrix_df(vacancy_url, 'data/data_gb_resultv1.csv')
 
             st.dataframe(matrix_df, use_container_width=True)
-
-    with tab3:
-        st.subheader('Кластерный анализ (t-SNE Visualization with Clusters) для датасета из файла it.csv')
-
+            
 if __name__ == "__main__":
     main()
