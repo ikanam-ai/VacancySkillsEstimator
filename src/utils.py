@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from parse_hh_data import download
 from bs4 import BeautifulSoup
+from fuzzywuzzy import fuzz
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -17,9 +18,14 @@ nltk.download('stopwords')
 from configuration import PATTERN
 from metrics import levenshtein_distance_sort, calculate_skill_similarity, calculate_tfidf_similarity
 from sklearn.preprocessing import MinMaxScaler
+from joblib import load
 
 STOP_WORDS = set(stopwords.words('russian'))
 PUNCTUATION = set(string.punctuation)
+
+binar_model = load('clf.joblib')
+tfidf_vectorizer = load('tfidf_vectorizer.joblib')
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -49,15 +55,41 @@ def preprocess_data_from_vacancy_url(vacancy_url: str) -> dict[str, Any]:
     soup = BeautifulSoup(vacancy['description'], 'html.parser')
 
     # Extract text
-    parsed_description = soup.get_text().split('  ')
-    parsed_description = [i.lower().strip() for i in parsed_description if i != '']
+    text_split = soup.get_text()
+    text_split = re.split(r'\s{2,}|;|[.!?]', text_split)
+    parsed_description = [i.lower().strip() for i in text_split if i != '']
 
     # Parsing data
     vacancy['description'] = '\n'.join(parsed_description)
+    vacancy['sentences'] = parsed_description
     vacancy['name'] = vacancy['name'].lower()
     vacancy['key_skills'] = [i.lower() for i in vacancy['key_skills']]
 
     return vacancy
+
+
+
+def predict_sentences(sentences):
+    # Make predictions for each sentence
+    sentences = tfidf_vectorizer.transform(sentences)
+    predictions = binar_model.predict(sentences)
+
+    return predictions
+
+
+def get_requirements_predict(preprocessed_vacancy):
+    sentences = preprocessed_vacancy['sentences']
+
+    # Get predictions for the sentences
+    predictions = predict_sentences(sentences)
+    replacement_dict = {0: False, 1: True}
+
+    # Замена значений в массиве с помощью словаря
+    arr_replaced = np.array([replacement_dict[val] for val in predictions])
+
+    preprocessed_vacancy['requirements_predict'] = np.array(sentences)[arr_replaced]
+
+    return preprocessed_vacancy
 
 
 def preprocess_text(text: str) -> str:
@@ -196,3 +228,42 @@ def preprocess_and_match_vacancy(vacancy_url: str, data_gb_path: str, data_it_pa
     logging.info("End scaling")
 
     return data_gb, preprocessed_vacancy
+
+
+def get_matrix_df(vacancy_url: str, data_gb_path: str):
+
+    logging.info("Start preprocess_data_from_vacancy_url")
+    preprocessed_vacancy = preprocess_data_from_vacancy_url(vacancy_url)
+    logging.info("End preprocess_data_from_vacancy_url")
+
+    preprocessed_vacancy = get_requirements_predict(preprocessed_vacancy)
+
+    logging.info("Start preprocess_gb_data")
+    data_gb = preprocess_gb_data(data_gb_path)
+    logging.info("End preprocess_gb_data")
+    # Создание пустого DataFrame для матрицы
+    # Создание пустого DataFrame для матрицы
+    matrix_df = pd.DataFrame(index=preprocessed_vacancy['requirements_predict'], columns=data_gb.index)
+
+    # Установка параметров для окна
+    # Длина окна, которая должна быть примерно равной длине требования
+    threshold = 70  # Порог сходства
+
+    # Проходимся по каждому требованию и каждому элементу столбца 'other' и заполняем матрицу
+    for req in preprocessed_vacancy['requirements_predict'][:10]:
+        window_size = len(req)
+        for idx, other_text in data_gb['other'].items():
+            max_similarity = 0
+            for i in range(min(100, len(other_text)), 3):
+                window = other_text[i:i+window_size].lower()
+                similarity = fuzz.partial_ratio(req.lower(), window)
+                max_similarity = max(max_similarity, similarity)
+            if max_similarity >= threshold:
+                matrix_df.at[req, idx] = True
+            else:
+                matrix_df.at[req, idx] = False
+
+    # Заполнение пропущенных значений False
+    matrix_df = matrix_df.fillna(False)
+
+    return matrix_df
