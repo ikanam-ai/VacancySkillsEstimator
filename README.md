@@ -1,37 +1,87 @@
-VacancySkillsEstimator
-==============================
+<p align="center">
+    <img src="./logo.jpg" alt="Логотип проекта" width="500" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+     <H2 align="center">Команда Ikanam</H2> 
+    <H2 align="center">Кейс "Компетентностный подбор образовательных курсов"</H2> 
+</p>
 
-VacancySkillsEstimator - проект, который анализирует вакансии на hh.ru и связывает их с соответствующими образовательными курсами. Позволяет соискателям понять, какие навыки нужны работодателям, и предоставляет информацию о доступных курсах для их приобретения.
 
-Project Organization
+> Команда Ikanam представляет жюри инновационный программный модуль с использованием ИИ для нахождения наиболее релевантных образовательных курсов GeekBrains на основе представленной вакансии с сайта HH.ru. Данный программный продукт является мощным инструментом для автоматизации анализа и улучшения качества пользовательского опыта.
+
+
+## Установка и запуск
+
+**Наше решение разделено на две ключевые части. Первая часть включает в себя подробное руководство по развёртыванию без необходимости взаимодействия с интерфейсом, что обеспечивает быстрое и эффективное тестирование. Вторая часть предоставляет подробные инструкции по развертыванию решения с использованием интерфейса, обеспечивая при этом максимальную удобство и интуитивную навигацию.**
+
+***Часть 1:***
+----------
+
+*1. Загрузите репозиторий на свой компьютер и откройте её в вашей предпочитаемой среде разработки (IDE).* 
+
+*2. Откройте терминал в IDE и введите туда следующую команду:* 
+
+```python
+python -m venv .venv
+```
+*3. Дождитесь создание папки `.venv` затем введите следующую команду:*
+
+```python
+.\.venv\Scripts\activate
+```
+*4. После активации установите все библиотеки (весрия python==3.10+) при помощи данной команды:*
+
+```python
+pip install -r requirements.txt
+```
+
+*5. Дождитесь установки всех библиотек и введите следующую команду.*
+
+```python
+pip install parse_hh_data==0.1.14
+```
+
+*6. Прекрасно! Теперь в терминале введите команду для перехода к основной папке с кодом проекта.*
+
+```shell
+cd src 
+```
+
+*7. Для запуска сервиса, введите следующую команду.*
+
+```python
+streamlit run src/app.py
+```
+
+
+<p align="center">
+    <img src="./entry_streamlit_service.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+    Начальная страница сервиса
+</p>
+
+
+# Пример использования сервиса, иллюстрированный процессом обработки скринкаста.
+
+
+*Заполнить*
+
+
+# Пример работы сервиса
+
+*Заполнить*
+
+
+Структура проекта
 ------------
 
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `-` delimited description, e.g.
     │                         `1.0-jqp-initial-data-exploration`.
     │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
@@ -39,19 +89,7 @@ Project Organization
     │   │   └── make_dataset.py
     │   │
     │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
-
-
+    │       └── build_features.py
+    
 --------
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>

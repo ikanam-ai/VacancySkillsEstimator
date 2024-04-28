@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "vacancy-skill-estimator"
+version = "0.1.0"
+description = ""
+authors = ["Ikanam"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.2"
+numpy = "^1.26.4"
+nltk = "^3.8.1"
+fuzzywuzzy = "^0.18.0"
+scikit-learn = "^1.4.2"
+sentence-transformers = "^2.7.0"
+streamlit = "^1.33.0"
+pypdf2 = "^3.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
