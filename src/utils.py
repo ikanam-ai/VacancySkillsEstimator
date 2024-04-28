@@ -247,14 +247,14 @@ def get_matrix_df(vacancy_url: str, data_gb_path: str):
 
     # Установка параметров для окна
     # Длина окна, которая должна быть примерно равной длине требования
-    threshold = 49  # Порог сходства
+    threshold = 65  # Порог сходства
     # print(preprocessed_vacancy['requirements_predict'])
     # Проходимся по каждому требованию и каждому элементу столбца 'other' и заполняем матрицу
     for req in preprocessed_vacancy['requirements_predict'][:10]:
         window_size = len(req)
         for idx, other_text in data_gb['other'].items():
             max_similarity = 0
-            for i in range(0, min(1500, len(other_text)), 3):
+            for i in range(0, min(4000, len(other_text)), 4):
                 window = other_text[i:i+window_size].lower()
                 similarity = fuzz.partial_ratio(req.lower(), window)
                 max_similarity = max(max_similarity, similarity)
