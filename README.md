@@ -88,6 +88,8 @@ https://github.com/ikanam-ai/VacancySkillsEstimator/assets/148991752/4a63bb7b-a8
 </p>
 
 ***Часть 4:***
+**Важно: Процесс немного долгий из-за нагрузки на сервер. Пожалуйста, подождите несколько минут. (Постарайтесь ничего не нажимать в текстовой области**
+
 
 <p align="center">
     <img src="./4killerfeature.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
