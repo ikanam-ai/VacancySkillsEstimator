@@ -93,29 +93,3 @@ https://github.com/ikanam-ai/VacancySkillsEstimator/assets/148991752/4a63bb7b-a8
     <img src="./4killerfeature.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
     Анализ покрытия требований данной вакансии с помощью других образовательных курсов
 </p>
-
-
-Структура проекта
-------------
-
-    ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │       └── build_features.py
-    
---------
-
