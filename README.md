@@ -66,14 +66,33 @@ https://github.com/ikanam-ai/VacancySkillsEstimator/assets/148991752/4a63bb7b-a8
 
 # Пример работы сервиса
 
+***Часть 1:***
 
 <p align="center">
     <img src="./1entry.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
-    Поиск курсов по представленным данным
+    Поиск образовательных курсов по представленным данным
 </p>
 
+***Часть 2:***
 
+<p align="center">
+    <img src="./2search.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+    Найденные схожие образовательные курсы
+</p>
 
+***Часть 3:***
+
+<p align="center">
+    <img src="./3similars_too.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+    Следующие по степени схожести образовательные курсы
+</p>
+
+***Часть 4:***
+
+<p align="center">
+    <img src="./4killerfeature.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+    Анализ покрытия требований данной вакансии с помощью других образовательных курсов
+</p>
 
 
 Структура проекта
