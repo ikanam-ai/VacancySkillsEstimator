@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 import requests
 
@@ -193,6 +194,7 @@ def main():
                     st.write(course_data['url'])
 
 
+            namings = pd.read_csv('data/data_gb_resultv1.csv')
 
             # Вывод информации о втором курсе и картинке
             display_course_info(col1, data.loc[1])
@@ -205,11 +207,13 @@ def main():
 
             st.subheader("Верификация требований у дисциплин")
             txt = st.text_area(
-            "⚙️ Киллер-фича!",
+            "⚙️ Киллер-фича! Важно: Процесс немного долгий из-за нагрузки на сервер. Пожалуйста, подождите несколько минут. (Постарайтесь ничего не нажимать в текстовой области)",
             "На основе резюме происходит поиск требований по ваканасии "
             "эти требования сопоставляются с помощью NLP с результатами обучения в курсах "
             "результат можно посмотреть здесь или скачать "
             )
+
+            st.write(namings['name'])
 
             matrix_df = get_matrix_df(vacancy_url, 'data/data_gb_resultv1.csv')
 
