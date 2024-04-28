@@ -66,7 +66,14 @@ https://github.com/ikanam-ai/VacancySkillsEstimator/assets/148991752/4a63bb7b-a8
 
 # Пример работы сервиса
 
-*Заполнить*
+
+<p align="center">
+    <img src="./1entry.jpg" alt="Логотип проекта" width="900" style="display: inline-block; vertical-align: middle; margin-right: 10px;"/>  <br/>
+    Поиск курсов по представленным данным
+</p>
+
+
+
 
 
 Структура проекта
